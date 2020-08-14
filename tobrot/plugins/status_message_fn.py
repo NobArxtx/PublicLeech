@@ -140,8 +140,7 @@ async def exec_message_f(client, message):
         else:
             _o = o.split("\n")
             o = "`\n".join(_o)
-        OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
-
+        OUTPUT = f"<b>QUERY:</b>\n__Command:__\n<code>{cmd}</code> \n__PID:__\n<code>{process.pid}</code>\n\n<b>stderr:</b> \n<code>{e}</code>\n<b>Output:</b>\n{o}"
         if len(OUTPUT) > MAX_MESSAGE_LENGTH:
             with open("exec.text", "w+", encoding="utf8") as out_file:
                 out_file.write(str(OUTPUT))
@@ -155,7 +154,7 @@ async def exec_message_f(client, message):
             os.remove("exec.text")
             await message.delete()
         else:
-            await message.reply_text(OUTPUT)
+            await message.reply_text(OUTPUT, parse_mode='html', disable_web_page_preview=True)
 
 
 async def upload_document_f(client, message):
